@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../../UI/Button';
 import noProject from '../../assets/no-projects.png';
 
 type Props = {}
@@ -10,9 +11,9 @@ const NoProjectSelected = (props: Props) => {
       <h2 className="text-xl font-bold text-stone-500 my-4">No Project Selected</h2>
       <p className="text-stone-400 mb-4">Select a projet or get started with a new one</p>
       <p className="mt-8">
-        <button>
+        <Button>
           Create New Project
-        </button>
+        </Button>
       </p>
     </div>
   )
