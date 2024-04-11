@@ -3,10 +3,16 @@ import ProjectSideBar from './components/ProjectSideBar/ProjectSideBar';
 import NewProject from './components/NewProject/NewProject';
 
 function App() {
+  const [toggleForm, setToggleForm] = React.useState<boolean>(false);
+
+  const handleToggleForm = () => {
+    setToggleForm(!toggleForm);
+  }
+
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSideBar/>
-      <NewProject />
+      <ProjectSideBar handleToggleForm={handleToggleForm}/>
+      {toggleForm && <NewProject/> }
     </main>
   );
 }
