@@ -24,6 +24,7 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
     }
 
     const projectInformation = {
+      id: Date.now().toString(),
       title,
       description,
       dueDate
@@ -39,9 +40,9 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
         <li><Button onClick={handleSaveProject} className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950">Save</Button></li>
       </menu>
       <div>
-          <Input ref={titleRef} label={"Title"} />
+          <Input ref={titleRef} type="text" label={"Title"} />
           <Textarea ref={descriptionRef} label={"Description"} />
-          <Input ref={dueDateRef} label="Due Date" />
+          <Input ref={dueDateRef} type="date" label="Due Date" />
       </div>
     </div>
   )

@@ -1,14 +1,10 @@
 import React, { ForwardedRef } from 'react'
 
 
-type Props = {
-  label: string
-  ref: React.Ref<HTMLInputElement>
-  props?: React.HTMLProps<HTMLInputElement>
-}
+type Props = React.InputHTMLAttributes<HTMLInputElement> & { label: string }
 
 
-const Input = React.forwardRef<HTMLInputElement, Props>(({ label, props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, Props>(({ label, ...props }, ref) => {
 
   return (
     <p className="flex flex-col gap-1 my-4">
