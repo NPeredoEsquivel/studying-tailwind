@@ -2,18 +2,52 @@ import React from 'react';
 import ProjectSideBar from './components/ProjectSideBar/ProjectSideBar';
 import NewProject from './components/NewProject/NewProject';
 import NoProjectSelected from './components/NoProjectSelected/NoProjectSelected';
+import { TProject } from './types/types';
+
+type ProjectState = {
+  projects: TProject[];
+  selectedProjectId?: string | null;
+}
 
 function App() {
-  const [toggleForm, setToggleForm] = React.useState<boolean>(false);
+  const [projectsState, setProjectsState] = React.useState<ProjectState>({
+    selectedProjectId: null,
+    projects: []
+  });
 
-  const handleToggleForm = () => {
-    setToggleForm(!toggleForm);
+  const [showForm, setShowForm] = React.useState<boolean>(false);
+
+  const handleStartAddProject = (_: React.MouseEvent<HTMLButtonElement>, projectInformation: TProject) => {
+    console.log('pressed', projectInformation)
+    setProjectsState(prevState => {
+      const projects = [...prevState.projects, {id: Date.now(), ...projectInformation}]
+      return {
+        ...prevState,
+        projects
+      }
+    })
+  }
+
+  const handleShowForm = () => {
+    if (!showForm) {
+      setShowForm(true)
+    } else {
+      setShowForm(false)
+    }
+  }
+
+  let content;
+
+  if (showForm) {
+    content = <NewProject handleStartAddProject={handleStartAddProject} handleShowForm={handleShowForm}/>
+  } else {
+    content = <NoProjectSelected handleShowForm={handleShowForm} />
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSideBar handleToggleForm={handleToggleForm}/>
-      {toggleForm ? <NewProject/> : <NoProjectSelected/> }
+      <ProjectSideBar projectList={projectsState.projects} handleShowForm={handleShowForm} />
+      { content }
     </main>
   );
 }
