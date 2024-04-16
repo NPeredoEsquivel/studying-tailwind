@@ -18,9 +18,9 @@ function App() {
   const [showForm, setShowForm] = React.useState<boolean>(false);
 
   const handleStartAddProject = (_: React.MouseEvent<HTMLButtonElement>, projectInformation: TProject) => {
-    console.log('pressed', projectInformation)
     setProjectsState(prevState => {
-      const projects = [...prevState.projects, {id: Date.now(), ...projectInformation}]
+      const projects = [...prevState.projects, {
+        ...projectInformation}]
       return {
         ...prevState,
         projects
