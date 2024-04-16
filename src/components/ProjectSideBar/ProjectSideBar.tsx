@@ -8,6 +8,7 @@ type Props = {
 }
 
 type TProjectValues = {
+  id: string;
   title: string;
   description: string;
   dueDate: string;
@@ -20,17 +21,16 @@ const ProjectSideBar: React.FC<Props> = ({ projectList,  handleShowForm }) => {
       <div>
         <Button onClick={handleShowForm}>+ Add Project</Button>
       </div>
-      <ul>
-        { projectList.length !== 0 ? projectList.map((project: TProjectValues) => {
+      <ul className="mt-8">
+        { projectList.length !== 0 ? projectList.map((project: TProjectValues, index: number) => {
+          const projectIndex = index + 1 
           return (
-            <li key={project.title} className="my-4">
-              <h3 className="font-bold text-stone-200">{project.title}</h3>
-              <p className="text-stone-300">{project.description}</p>
-              <p className="text-stone-300">{project.dueDate}</p>
+            <li key={project.id} className="my-4">
+              <Button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:text-stone-200 hover:bg-stone-800">{project.title}</Button>
             </li>
           )
         })
-        : <p className="text-stone-300">No projects yet</p>
+        : <></>
       }
       </ul>
     </aside>
