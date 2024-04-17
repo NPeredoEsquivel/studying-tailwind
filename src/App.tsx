@@ -28,6 +28,15 @@ function App() {
     })
   }
 
+  const handleSelectProject = (_: React.MouseEvent<HTMLElement>, projectId: string) => {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: projectId
+      }
+    })
+  }
+
   const handleShowForm = () => {
     if (!showForm) {
       setShowForm(true)
@@ -46,7 +55,11 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectSideBar projectList={projectsState.projects} handleShowForm={handleShowForm} />
+      <ProjectSideBar 
+        projectList={projectsState.projects}
+        handleShowForm={handleShowForm}
+        handleSelectProject={handleSelectProject}
+      />
       { content }
     </main>
   );
