@@ -6,10 +6,9 @@ type Props = {
   children: React.ReactNode
 }
 
-type ModalRef = {
+export type ModalRef = {
   open: () => void;
   close: () => void;
-
 }
 
 const Modal = React.forwardRef<ModalRef, Props>(({ children }, ref) => {
