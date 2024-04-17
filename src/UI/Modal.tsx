@@ -26,7 +26,7 @@ const Modal = React.forwardRef<ModalRef, Props>(({ children }, ref) => {
     }));
 
   return createPortal(
-    <dialog ref={dialogRef}>
+    <dialog className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md" ref={dialogRef}>
       {children}
     </dialog>,
     document.getElementById('modal-root') as HTMLElement
