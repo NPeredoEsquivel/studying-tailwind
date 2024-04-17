@@ -25,7 +25,7 @@ const NewProject: React.FC<Props> = ({ handleStartProject, handleCancelAddProjec
     const description = descriptionRef.current!.value;
     const dueDate = dueDateRef.current!.value;
 
-    if (validateInput(title) || validateInput(description) || validateInput(dueDate)) {
+    if (!validateInput(title) && !validateInput(description) && !validateInput(dueDate)) {
       errorModalRef.current!.open();
       return;
     }
