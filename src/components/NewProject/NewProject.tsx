@@ -14,12 +14,17 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
   const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
   const dueDateRef = React.useRef<HTMLInputElement>(null);
 
+  const validateInput = (input: string) => {
+    return input.trim().length > 0;
+  }
+
   const handleSaveProject = (event: React.MouseEvent<HTMLButtonElement>) => { 
     const title = titleRef.current!.value;
     const description = descriptionRef.current!.value;
     const dueDate = dueDateRef.current!.value;
 
-    if (!title || !description || !dueDate) {
+    if (validateInput(title) || validateInput(description) || validateInput(dueDate)) {
+      //show modal
       return;
     }
 
