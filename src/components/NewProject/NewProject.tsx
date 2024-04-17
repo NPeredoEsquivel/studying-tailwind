@@ -6,11 +6,11 @@ import { TProject } from '../../types/types';
 import Modal, {ModalRef} from '../../UI/Modal';
 
 type Props = {
-  handleStartAddProject: (arg0: React.MouseEvent<HTMLButtonElement>, arg1: TProject) => void
-  handleShowForm: () => void
+  handleStartProject: (arg0: TProject) => void
+  handleCancelAddProject: () => void
 }
 
-const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) =>  {
+const NewProject: React.FC<Props> = ({ handleStartProject, handleCancelAddProject }) =>  {
   const titleRef = React.useRef<HTMLInputElement>(null);
   const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
   const dueDateRef = React.useRef<HTMLInputElement>(null);
@@ -20,7 +20,7 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
     return input.trim().length > 0 || input === null || input === undefined;
   }
 
-  const handleSaveProject = (event: React.MouseEvent<HTMLButtonElement>) => { 
+  const handleSaveProject = () => { 
     const title = titleRef.current!.value;
     const description = descriptionRef.current!.value;
     const dueDate = dueDateRef.current!.value;
@@ -37,7 +37,7 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
       dueDate
     }
 
-    handleStartAddProject(event, projectInformation);
+    handleStartProject(projectInformation);
   }
 
   return (
@@ -50,7 +50,7 @@ const NewProject: React.FC<Props> = ({ handleStartAddProject, handleShowForm }) 
       </Modal>
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
-          <li><Button onClick={handleShowForm}className="text-stone-800 hover:text-stone-950">Cancel</Button></li>
+          <li><Button onClick={handleCancelAddProject}className="text-stone-800 hover:text-stone-950">Cancel</Button></li>
           <li><Button onClick={handleSaveProject} className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950">Save</Button></li>
         </menu>
         <div>

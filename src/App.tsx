@@ -2,33 +2,27 @@ import React from 'react';
 import ProjectSideBar from './components/ProjectSideBar/ProjectSideBar';
 import NewProject from './components/NewProject/NewProject';
 import NoProjectSelected from './components/NoProjectSelected/NoProjectSelected';
-import { TProject } from './types/types';
-
-type ProjectState = {
-  projects: TProject[];
-  selectedProjectId?: string | null;
-}
+import { TProject, ProjectState } from './types/types';
 
 function App() {
   const [projectsState, setProjectsState] = React.useState<ProjectState>({
-    selectedProjectId: null,
+    selectedProjectId: undefined,
     projects: []
   });
 
-  const [showForm, setShowForm] = React.useState<boolean>(false);
-
-  const handleStartAddProject = (_: React.MouseEvent<HTMLButtonElement>, projectInformation: TProject) => {
+  const handleAddProject = (projectInformation: TProject) => {
     setProjectsState(prevState => {
       const projects = [...prevState.projects, {
         ...projectInformation}]
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects
       }
     })
   }
 
-  const handleSelectProject = (_: React.MouseEvent<HTMLElement>, projectId: string) => {
+  const handleSelectProject = (projectId: string) => {
     setProjectsState(prevState => {
       return {
         ...prevState,
@@ -37,27 +31,37 @@ function App() {
     })
   }
 
-  const handleShowForm = () => {
-    if (!showForm) {
-      setShowForm(true)
-    } else {
-      setShowForm(false)
-    }
+  const handleCancelAddProject = () => {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined
+      }
+    })
+  }
+
+  const handleStartAddProject = () => {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: null
+      }
+    })
   }
 
   let content;
 
-  if (showForm) {
-    content = <NewProject handleStartAddProject={handleStartAddProject} handleShowForm={handleShowForm}/>
-  } else {
-    content = <NoProjectSelected handleShowForm={handleShowForm} />
+  if (projectsState.selectedProjectId === null) {
+    content = <NewProject handleStartProject={handleAddProject} handleCancelAddProject={handleCancelAddProject}/>
+  } else if (projectsState.selectedProjectId === undefined) {
+    content = <NoProjectSelected handleStartAddProject={handleStartAddProject} />
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
       <ProjectSideBar 
-        projectList={projectsState.projects}
-        handleShowForm={handleShowForm}
+        projectState={projectsState}
+        handleStartAddProject={handleStartAddProject}
         handleSelectProject={handleSelectProject}
       />
       { content }
