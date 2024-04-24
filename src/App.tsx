@@ -11,6 +11,16 @@ function App() {
     projects: []
   });
 
+  const handleDeleteProject = (projectId: string) => {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter((project) => project.id !== projectId)
+      }
+    })
+  }
+
   const handleAddProject = (projectInformation: TProject) => {
     setProjectsState(prevState => {
       const projects = [...prevState.projects, {
@@ -18,7 +28,7 @@ function App() {
       }]
       return {
         ...prevState,
-        selectedProjectId: undefined,
+        selectedProjectId: projectInformation.id,
         projects
       }
     })
@@ -57,11 +67,13 @@ function App() {
     content = <NewProject handleStartProject={handleAddProject} handleCancelAddProject={handleCancelAddProject} />
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected handleStartAddProject={handleStartAddProject} />
-  }
-  const projectSelected = projectsState.projects.find(project => project.id === projectsState.selectedProjectId)!
+  } else {
+    const projectSelected = projectsState.projects.find(project => project.id === projectsState.selectedProjectId)!
 
-  content = <ProjectDetail project={projectSelected} />
-
+    content = <ProjectDetail project={projectSelected} onDelete={handleDeleteProject}/>
+  } 
+  
+  
 
   return (
     <main className="h-screen my-8 flex gap-8">
