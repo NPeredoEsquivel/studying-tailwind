@@ -27,8 +27,13 @@ function App() {
     })
   }
 
-  const handleDeleteTask = () => {
-
+  const handleDeleteTask = (taskId: string) => {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter(task => task.id !== taskId)
+      }
+    })
   }
 
   const handleDeleteProject = (projectId: string) => {

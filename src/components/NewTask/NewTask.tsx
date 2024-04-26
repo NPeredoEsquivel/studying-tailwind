@@ -12,6 +12,7 @@ const NewTask: React.FC<Props> = ({onAddTask}) => {
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (task.trim() === '') return;
     onAddTask(task);
     setTask('');
   }
