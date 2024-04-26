@@ -1,14 +1,17 @@
 import React from 'react'
 import Button from '../../UI/Button';
-import { TProject } from '../../types/types';
+import { TProject, TTask } from '../../types/types';
 import Tasks from '../Tasks/Tasks';
 
 type Props = {
   project: TProject
   onDelete: (projectId: string) => void
+  onAddTask: (task: string) => void
+  onDeleteTask: (taskId: string) => void
+  tasks: TTask[]
 }
 
-const ProjectDetail: React.FC<Props> = ({ project, onDelete }) => {
+const ProjectDetail: React.FC<Props> = ({ project, onDelete, onAddTask, onDeleteTask, tasks }) => {
   console.log("🚀 ~ project:", project)
   const formattedDate = new Date(project.dueDate).toLocaleDateString('en-US', {
     day: 'numeric',
@@ -28,7 +31,7 @@ const ProjectDetail: React.FC<Props> = ({ project, onDelete }) => {
         <p className="mb-4 text-stone-400">{formattedDate}</p>
         <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
       </header>
-      <Tasks/>
+      <Tasks tasks={tasks} onAddTask={onAddTask} onDeleteTask={onDeleteTask}/>
     </div>
   )
 }
