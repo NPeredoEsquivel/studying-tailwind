@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../../UI/Button';
 import { TProject } from '../../types/types';
+import Tasks from '../Tasks/Tasks';
 
 type Props = {
   project: TProject
@@ -27,7 +28,7 @@ const ProjectDetail: React.FC<Props> = ({ project, onDelete }) => {
         <p className="mb-4 text-stone-400">{formattedDate}</p>
         <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
       </header>
-      Tasks
+      <Tasks/>
     </div>
   )
 }
